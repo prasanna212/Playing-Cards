@@ -15,6 +15,9 @@ public class PokerHand extends Hand {
 	final static int ONE_PAIR = 8;
 	final static int HIGH_CARD = 9;
 	
+	public PokerHand(){
+		super();
+	}
 	public PokerHand(List<Card> hand) {
 		super(hand);
 		// TODO Auto-generated constructor stub
@@ -31,7 +34,7 @@ public class PokerHand extends Hand {
 	private int calculateHandRank() {
 		// TODO Auto-generated method stub
 		
-		int rank;
+		int rank=0;
 		HashMap<Integer,Integer> valueFrequency;
 		valueFrequency = getValueFrequency();
 		if(isStraightFlush())
@@ -158,7 +161,7 @@ public class PokerHand extends Hand {
 		v = a.get(0);
 		for(int i=1;i<a.size();i++)
 		{
-			if(a.get(i) != a.get(i-1))
+			if(a.get(i) != a.get(i-1)+1)
 				return false;
 		}
 		return true;

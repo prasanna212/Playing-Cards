@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +24,7 @@ public class Deck {
 	public void addCard(Card c){
 		deck.add(c);
 	}
-	public void remove(Card c){
+	public void removeCard(Card c){
 		deck.remove(c);
 	}
 	public Card get(int n){
@@ -33,15 +34,7 @@ public class Deck {
 		return deck.size();
 	}
 	public void shuffle(){
-		List<Card> newDeck=new ArrayList<Card>();
-		Random random=new Random();
-		while(deck.size()>0){
-			Card c=deck.get(random.nextInt(deck.size()));
-			newDeck.add(c);
-			deck.remove(c);
-			
-		}
-		deck=newDeck;
+		Collections.shuffle(this.deck);
 	}
 
 }
