@@ -23,5 +23,5 @@ public abstract class Hand {
 	{
 		this.hand.remove(c);
 	}
-	abstract void evaluate();
+	abstract int evaluate();
 }

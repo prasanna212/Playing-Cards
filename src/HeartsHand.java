@@ -8,7 +8,8 @@ public class HeartsHand extends Hand {
 	}
 
 	@Override
-	void evaluate() {
+	int evaluate() {
+		return 0;
 		// TODO Auto-generated method stub
 
 	}

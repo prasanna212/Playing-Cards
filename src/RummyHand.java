@@ -13,7 +13,8 @@ public class RummyHand extends Hand  {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	void evaluate() {
+	int evaluate() {
+		return 0;
 		// TODO Auto-generated method stub
 
 	}

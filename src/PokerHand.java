@@ -4,35 +4,121 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PokerHand extends Hand {
-
+	
+	final static int STRAIGHT_FLUSH = 1;
+	final static int FOUR_OF_A_KIND = 2;
+	final static int FULL_HOUSE = 3;
+	final static int FLUSH = 4;
+	final static int STRAIGHT = 5;
+	final static int THREE_OF_A_KIND = 6;
+	final static int TWO_PAIR = 7;
+	final static int ONE_PAIR = 8;
+	final static int HIGH_CARD = 9;
+	
 	public PokerHand(List<Card> hand) {
 		super(hand);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	void evaluate() {
+	int evaluate() {
 		// TODO Auto-generated method stub
-		String rank;
+		return calculateHandRank();
+	}
+	
+	
+
+	private int calculateHandRank() {
+		// TODO Auto-generated method stub
+		
+		int rank;
 		HashMap<Integer,Integer> valueFrequency;
 		valueFrequency = getValueFrequency();
 		if(isStraightFlush())
-			rank = "Straight Flush";
+			rank = STRAIGHT_FLUSH;
 		else if(isFourOfAKind(valueFrequency))
-			rank = "Four of a kind";
+			rank = FOUR_OF_A_KIND;
+		else if(isFullHouse(valueFrequency))
+			rank = FULL_HOUSE;
 		else if(hasSameSuit())
-			rank = "Flush";
+			rank = FLUSH;
 		else if(isStraight())
-			rank = "Straight";
+			rank = STRAIGHT;
+		else if(isThreeOfAKind(valueFrequency))
+			rank = THREE_OF_A_KIND;
+		else if(isTwoPair(valueFrequency))
+			rank = TWO_PAIR;
+		else if(isOnePair(valueFrequency))
+			rank = ONE_PAIR;
+		else
+			rank = HIGH_CARD;
+		return rank;
+	}
+
+	private boolean isOnePair(HashMap<Integer, Integer> valueFrequency) {
+		// TODO Auto-generated method stub
+		int pair_count = 0;
+		if(valueFrequency.size() == 4)
+		{
+			for(int value:valueFrequency.keySet())
+			{
+				if(valueFrequency.get(value) == 2)
+					pair_count++;
+			}
+		}
+		return pair_count==1;
+	}
+
+	private boolean isTwoPair(HashMap<Integer, Integer> valueFrequency) {
+		// TODO Auto-generated method stub
+		int pair_count = 0;
+		if(valueFrequency.size() == 3)
+		{
+			for(int value:valueFrequency.keySet())
+			{
+				if(valueFrequency.get(value) == 2)
+					pair_count++;
+			}
+		}
+		return pair_count==2;
+	}
+
+	private boolean isThreeOfAKind(HashMap<Integer, Integer> valueFrequency) {
+		// TODO Auto-generated method stub
+		if(valueFrequency.size() == 3)
+		{
+			for(int value:valueFrequency.keySet())
+			{
+				if(valueFrequency.get(value) == 3)
+					return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isFullHouse(HashMap<Integer, Integer> valueFrequency) {
+		// TODO Auto-generated method stub
+		if(valueFrequency.size() == 2)
+		{
+			for(int value:valueFrequency.keySet())
+			{
+				if(valueFrequency.get(value) == 3)
+					return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isFourOfAKind(HashMap<Integer, Integer> vf) {
 		// TODO Auto-generated method stub
-		List<Integer> l = new ArrayList<Integer>();
+		//List<Integer> l = new ArrayList<Integer>();
 		if(vf.size() == 2)
 		{
-			l.add(vf.keySet());
-			
+			for(int value:vf.keySet())
+			{
+				if(vf.get(value) == 4)
+					return true;
+			}
 		}
 		return false;
 	}
@@ -46,7 +132,7 @@ public class PokerHand extends Hand {
 			rank = hand.get(i).value;
 			if(vf.containsKey(rank))
 			{
-				vf.put(rank, vf.get(rank));
+				vf.put(rank, vf.get(rank)+1);
 			}
 			else
 			{
