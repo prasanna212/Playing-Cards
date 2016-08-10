@@ -7,8 +7,15 @@ public class TestMain {
 		Pack pack=new PackWithWC();
 		Deck deck=new Deck(pack);
 		Card c;
-		for(int i=0;i<deck.size();i++){
-			c=deck.get(i);
+		
+		deck.shuffle();
+		RummyHand rummyHand=new RummyHand();
+		for(int i=0;i<13;i++){
+			rummyHand.add(deck.get(i));
+		}
+		//rummyHand.sort();
+		for(int i=0;i<13;i++){
+			c=rummyHand.get(i);
 			System.out.println(c.getSuit()+" "+c.getValue());
 		}
 	}
